@@ -47,19 +47,33 @@ function check_fzf() {
             fi
             ;;
           "WINDOWS")
-            if command -v scoop &> /dev/null; then
-              scoop install fzf
-            elif command -v choco &> /dev/null; then
-              choco install fzf
-            else
-              echo "❌ Manual installation required for Windows."
-              echo "📝 Installation options:"
-              echo "1. Scoop: scoop install fzf"
-              echo "2. Chocolatey: choco install fzf"
-              echo "3. Manual: https://github.com/junegunn/fzf#windows"
-              exit 1
-            fi
-            ;;
+              if command -v scoop &> /dev/null; then
+                  # Check for admin rights
+                  if [[ "$(id -u)" != "0" ]]; then
+                      echo "🔐 Requesting administrator privileges..."
+                      powershell.exe -Command "Start-Process scoop -Verb RunAs -ArgumentList 'install fzf' -Wait"
+                  else
+                      scoop install fzf
+                  fi
+              elif command -v choco &> /dev/null; then
+                  # Chocolatey always requires admin rights
+                  echo "🔐 Requesting administrator privileges..."
+                  powershell.exe -Command "Start-Process chocolatey -Verb RunAs -ArgumentList 'install fzf -y' -Wait"
+              else
+                  echo "❌ Manual installation required for Windows."
+                  echo "📝 Installation options:"
+                  echo "1. Scoop (recommended):"
+                  echo "   - Open PowerShell as administrator"
+                  echo "   - Set-ExecutionPolicy RemoteSigned -scope CurrentUser"
+                  echo "   - iwr -useb get.scoop.sh | iex"
+                  echo "   - scoop install fzf"
+                  echo "2. Chocolatey:"
+                  echo "   - Open PowerShell as administrator"
+                  echo "   - choco install fzf -y"
+                  echo "3. Manual: https://github.com/junegunn/fzf#windows"
+                  exit 1
+              fi
+              ;;
           *)
             echo "❌ Unsupported operating system."
             echo "📝 Manual installation: https://github.com/junegunn/fzf#installation"
