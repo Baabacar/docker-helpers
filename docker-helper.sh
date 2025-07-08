@@ -1,26 +1,71 @@
 #!/bin/bash
 
+function check_os() {
+  case "$(uname -s)" in
+    Linux*)     echo "LINUX";;
+    Darwin*)    echo "MAC";;
+    CYGWIN*)    echo "WINDOWS";;
+    MINGW*)    echo "WINDOWS";;
+    *)         echo "UNKNOWN";;
+  esac
+}
+
 function check_fzf() {
   if ! command -v fzf &> /dev/null; then
     echo "❌ fzf is not installed on your system."
-    read -p "📥 Would you like to install fzf now? (y/n): " choice
+    read -p "📥 Do you want to install fzf now? (y/n): " choice
     
+    OS=$(check_os)
     case "$choice" in
       y|Y|yes|YES)
-        echo "🚀 Installing fzf..."
-        if command -v apt &> /dev/null; then
-          sudo apt update && sudo apt install -y fzf
-        elif command -v dnf &> /dev/null; then
-          sudo dnf install -y fzf
-        elif command -v yum &> /dev/null; then
-          sudo yum install -y fzf
-        elif command -v pacman &> /dev/null; then
-          sudo pacman -S fzf
-        else
-          echo "❌ Unable to install fzf automatically."
-          echo "📝 Please install it manually: https://github.com/junegunn/fzf#installation"
-          exit 1
-        fi
+        echo "🚀 Installing fzf for $OS..."
+        case "$OS" in
+          "LINUX")
+            if command -v apt &> /dev/null; then
+              sudo apt update && sudo apt install -y fzf
+            elif command -v dnf &> /dev/null; then
+              sudo dnf install -y fzf
+            elif command -v yum &> /dev/null; then
+              sudo yum install -y fzf
+            elif command -v pacman &> /dev/null; then
+              sudo pacman -S fzf
+            else
+              echo "❌ Manual installation required for your Linux distribution."
+              echo "📝 Follow the instructions: https://github.com/junegunn/fzf#installation"
+              exit 1
+            fi
+            ;;
+          "MAC")
+            if command -v brew &> /dev/null; then
+              brew install fzf
+              # Install keyboard shortcuts
+              $(brew --prefix)/opt/fzf/install
+            else
+              echo "❌ Homebrew is not installed."
+              echo "📝 Install Homebrew first: https://brew.sh"
+              exit 1
+            fi
+            ;;
+          "WINDOWS")
+            if command -v scoop &> /dev/null; then
+              scoop install fzf
+            elif command -v choco &> /dev/null; then
+              choco install fzf
+            else
+              echo "❌ Manual installation required for Windows."
+              echo "📝 Installation options:"
+              echo "1. Scoop: scoop install fzf"
+              echo "2. Chocolatey: choco install fzf"
+              echo "3. Manual: https://github.com/junegunn/fzf#windows"
+              exit 1
+            fi
+            ;;
+          *)
+            echo "❌ Unsupported operating system."
+            echo "📝 Manual installation: https://github.com/junegunn/fzf#installation"
+            exit 1
+            ;;
+        esac
         ;;
       *)
         echo "❌ fzf is required to use this script."
