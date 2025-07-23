@@ -2,8 +2,8 @@
 
 set -e
 
-SCRIPT_NAME="push-multiple-images.sh"
-ALIAS_NAME="docker-push"
+SCRIPT_NAME="docker-helper.sh"
+ALIAS_NAME="docker-helper"
 INSTALL_DIR="$HOME/.local/bin"
 INSTALL_PATH="$INSTALL_DIR/$SCRIPT_NAME"
 
