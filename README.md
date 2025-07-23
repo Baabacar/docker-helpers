@@ -1,6 +1,8 @@
 # Docker Helper 🐳
 
 ![Docker Logo](https://www.docker.com/wp-content/uploads/2022/03/Moby-logo.png)
+![License: MIT](https://img.shields.io/badge/license-MIT-blue)
+![Shell Script](https://img.shields.io/badge/script-bash-yellow?logo=gnubash)
 
 An interactive command-line tool to simplify the management of your Docker resources.
 
@@ -29,7 +31,43 @@ Born out of frustration with repetitive Docker tasks, this tool addresses:
     * RHEL/CentOS (yum/dnf)
     * Arch Linux (pacman)
 
-## 🚀 Installation Guide
+
+---
+
+## ⚙️ Installation
+
+**curl :**
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/Baabacar/docker-helpers/main/scripts/install.sh | sh
+````
+
+**wget :**
+
+```bash
+wget -qO- https://raw.githubusercontent.com/Baabacar/docker-helpers/main/scripts/install.sh | sh
+```
+
+---
+
+## 🧹 Désinstallation / Uninstallation
+
+**curl :**
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/Baabacar/docker-helpers/main/scripts/uninstall.sh | sh
+```
+
+**wget :**
+
+```bash
+wget -qO- https://raw.githubusercontent.com/Baabacar/docker-helpers/main/scripts/uninstall.sh | sh
+```
+
+---
+
+
+## 🚀 Manual Installation Guide
 
 1. Clone the project:
         ```bash
@@ -54,7 +92,7 @@ Born out of frustration with repetitive Docker tasks, this tool addresses:
 | Command | Action |
 |---------|--------|
 | 🗑️ Delete | Manage/Delete Docker resources |
-| 🐳 Docker-Compose | Manage Docker Compose services (WIP) |
+| 🐳 Publish Images | Push multiple Docker images at once to Docker Hub or any other OCI-compatible registry. |
 | 🚪 Exit | Exit the program |
 
 ### Practical Examples
@@ -122,10 +160,34 @@ function descriptive_name() {
 }
 ```
 
+
+---
+
+## 🌐 Language / Langue
+
+For more details about the project, please read the README in your preferred language:
+
+Pour plus de détails sur le projet, veuillez lire le README dans votre langue préférée :
+
+* [English / Anglais](docs/README.en.md)
+* [Français / French](docs/README.fr.md)
+
+---
+
+
+## 👤 Authors
+
+* **Babacar Ndiaye** – [GitHub Profile](https://github.com/Baabacar)
+
 ## 👥 Contributors
 
-* [Babacar Ndiaye](https://github.com/Baabacar)
-.
+* [Betzalel75](https://github.com/Betzalel75)
+
+## 📄 License / Licence
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus d'informations.
 
 ## 💭 Quote
 
